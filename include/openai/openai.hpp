@@ -218,6 +218,9 @@ inline Response Session::makeRequest(const std::string& contentType) {
 
     res_ = curl_easy_perform(curl_);
 
+    /* free the list of headers */
+    curl_slist_free_all(headers);
+
     bool is_error = false;
     std::string error_msg{};
     if(res_ != CURLE_OK) {
