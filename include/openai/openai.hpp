@@ -441,7 +441,7 @@ public:
             }
             if (api_base_url.empty()) {
                 if(const char* env_p = std::getenv("OPENAI_API_BASE")) {
-                    base_url = std::string{env_p} + "/";
+                    base_url = std::string{env_p};
                 }
                 else {
                     base_url = "https://api.openai.com/v1/";
@@ -449,6 +449,9 @@ public:
             }
             else {
                 base_url = api_base_url;
+            }
+            if (not base_url.empty() and base_url.back() != '/') {
+                base_url += '/';
             }
             session_.setUrl(base_url);
             session_.setToken(token_, organization_);
